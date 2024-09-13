@@ -48,7 +48,7 @@ const Header = () => {
 
             <div
               onClick={toggleMenu}
-              className="flex-center bg-light shadow-lg cursor-default h-11 w-11 border border-line rounded-full"
+              className="flex-center bg-lighter cursor-default h-11 w-11 rounded-full"
             >
               <Icon>menu</Icon>
             </div>

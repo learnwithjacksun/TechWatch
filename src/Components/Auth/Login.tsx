@@ -7,12 +7,10 @@ import Icon from "../Global/Icon";
 import { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
-import useData from "../../Hooks/useData";
 
 
 const Login = () => {
   const { user, login } = useAuth();
-  const {data} = useData()
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -44,14 +42,7 @@ const Login = () => {
     } else if (form.password.length < 8) {
       toast.error("Password must have a minimum of 8 characters!");
     } else {
-      toast.promise(
-        login(form.email, form.password),
-        {
-          loading: "Logging In...",
-          success: `Welcome, ${data?.name}!`,
-          error: "Login failed. Please try again.",
-        }
-      );
+      login(form.email, form.password)
     }
   };
 
@@ -62,11 +53,11 @@ const Login = () => {
       <Layout>
         <div className="main my-6">
           <Heading
-            title="Welcome Back"
-            subtitle="Ready to continue your journey? let's sign you in! 🎉"
+            title={`Welcome ${user? user?.name : 'Back'}`}
+            subtitle="Ready to continue your journey? let's sign you in!"
           />
 
-          <form onClick={handleSubmit} className="flex flex-col gap-4 w-full md:w-[480px] mx-auto bg-light border border-line p-4 rounded-2xl shadow-lg my-6">
+          <form onClick={handleSubmit} className="flex flex-col gap-4 w-full md:w-[480px] mx-auto p-4 rounded-2xl my-6">
             <Input
               id="email"
               label="E-mail Address"

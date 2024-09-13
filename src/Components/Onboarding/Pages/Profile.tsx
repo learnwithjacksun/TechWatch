@@ -1,9 +1,6 @@
 import Heading from "../../Global/Heading";
 import Layout from "../Layout";
-import avatar from "../../../assets/avatar-1.avif";
 import Icon from "../../Global/Icon";
-import Container from "../../Global/Container";
-import { works } from "../../../Constants/data";
 import { Link } from "react-router-dom";
 import Modal from "../../Global/Modal";
 import TextArea from "../../Global/TextArea";
@@ -91,7 +88,7 @@ const Profile = () => {
             <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 my-8">
               <div className="h-32 w-32 overflow-hidden rounded-full p-2 bg-light shadow-lg">
                 <img
-                  src={avatar} // Replace with user's actual avatar if available
+                  src={`https://api.dicebear.com/9.x/identicon/svg?seed=${data&& data?.name}`} // Replace with user's actual avatar if available
                   alt="Avatar"
                   className="w-full object-cover rounded-full"
                 />
@@ -127,7 +124,6 @@ const Profile = () => {
               </Link>
             </div>
             <div className="my-4">
-              <Container works={works} />
             </div>
           </div>
         </div>

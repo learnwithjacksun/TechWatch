@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { account, databases } from "../Libs/appwriteConfig";
 import { ID } from "appwrite";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 interface Props {
   children: React.ReactNode;
@@ -32,7 +33,7 @@ interface AuthType {
     role: string,
     gender: string
   ) => Promise<void>;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => void
   logout: () => Promise<void>;
 }
 
@@ -78,16 +79,21 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
-  const login = async (email: string, password: string) => {
-    try {
-      await account.createEmailPasswordSession(email, password);
-      const res = await account.get();
-      setUser(res);
-      await getUserData(res.$id);
-      navigate("/profile");
-    } catch (error) {
-      console.log("Login User:", error);
-    }
+  const login =  (email: string, password: string) => {
+    toast.promise(
+       account.createEmailPasswordSession(email, password),
+      {
+        loading: "Logging In",
+        success: (res) => {
+          console.log(res);
+          return `Welcome, ${user?.name}`
+        },
+        error: (err) => {
+          console.log(err);
+          return `Login failed: ${err.message}`
+        }
+      }
+    )
   };
 
   const userData = async (

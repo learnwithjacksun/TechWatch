@@ -7,8 +7,10 @@ import TextArea from "../../Global/TextArea";
 import ImageInput from "../../Global/ImageInput";
 import Icon from "../../Global/Icon";
 import toast from "react-hot-toast";
+import useProjects from "../../../Hooks/useProjects";
 
 const Upload = () => {
+  const {uploadProject } = useProjects()
   const [tools, setTools] = useState<string[]>([]);
   const [image, setImage] = useState<File | null>(null);
   const [title, setTitle] = useState("");
@@ -25,6 +27,22 @@ const Upload = () => {
   // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
+
+    if(!title) toast.error("Project title is required!")
+    else if(!description) toast.error("Project description is required!")
+    else if(!link) toast.error("Project link is required!")
+    else if(!tools) toast.error("Project tools is required!")
+    else if (!image) toast.error("Project image is required!")
+    else {
+      toast.promise(
+        uploadProject(title, description, link, tools, image),
+        {
+          loading: "Uploading Project!",
+          success: "Project Uploaded!",
+          error: "Failed to upload project"
+        }
+    )
+    }
     console.log({
       title,
       description,
@@ -47,7 +65,7 @@ const Upload = () => {
 
             {/* Form submit handler */}
             <form
-              className="flex flex-col gap-4 my-6 bg-light shadow-lg p-4 rounded-xl border border-line"
+              className="flex flex-col gap-4 my-6 rounded-xl"
               onSubmit={handleSubmit}
             >
               {/* Project Title */}

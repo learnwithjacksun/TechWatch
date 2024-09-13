@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Icon from "./Icon";
 interface Work {
-  id: string;
+  userid: string;
   name: string;
   role: string;
   image: string;
@@ -21,8 +21,8 @@ const Container: React.FC<ContainerProps> = ({ works }) => {
     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {works.map((work) => (
         <li
-          key={work.id}
-          className="flex flex-col gap-2 border border-line shadow-xl bg-light p-4 rounded-2xl"
+          key={work.userid}
+          className="flex flex-col gap-2 bg-lighter p-4 rounded-2xl"
         >
             <div className="flex items-center gap-2">
               <div className="h-12 w-12 rounded-full overflow-hidden">
@@ -51,7 +51,7 @@ const Container: React.FC<ContainerProps> = ({ works }) => {
               {work.tools.map((tool, index) => (
                 <span
                   key={index}
-                  className="bg-lighter border border-line text-sub px-2 py-1 rounded-full font-medium"
+                  className="bg-mid border border-line text-sub px-2 py-1 rounded-full font-medium"
                 >
                   {tool}
                 </span>
@@ -59,11 +59,11 @@ const Container: React.FC<ContainerProps> = ({ works }) => {
                   </div>
                   
                   <div className="flex gap-2">
-                  <a href={work.link} target="_blank" className="bg-lighter shadow-[0_0_1px_rgba(0,0,0,0.05)] border border-line  gap-2 font-semibold flex-center flex-1 rounded-lg h-9 text-sm ms-0 mt-auto">
+                  <a href={work.link} target="_blank" className="bg-gradient-to-r from-blue-500 to-orange-500 text-white gap-2 font-semibold flex-center flex-1 rounded-lg h-9 text-sm ms-0 mt-auto">
                           <span>Project Link</span>
                           <Icon styles="text-[1.3em]">open_in_new</Icon>
                       </a>
-                      <Link to={`/projects/${work.id}`} className="bg-primary text-invert flex-1 gap-2 font-semibold flex-center rounded-lg h-9 text-sm ms-0 mt-auto">
+                      <Link to={`/projects/${work.userid}`} className="bg-primary text-invert flex-1 gap-2 font-semibold flex-center rounded-lg h-9 text-sm ms-0 mt-auto">
                           <span>Preview</span>
                           <Icon styles="text-[1.3em]">visibility</Icon>
                       </Link>
