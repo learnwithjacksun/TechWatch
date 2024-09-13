@@ -88,7 +88,7 @@ const Login = () => {
             <p className="text-sm text-center font-medium text-sub">
               Don&apos;t have an account?{" "}
               <Link to="/register" className="text-main font-semibold">
-                Register
+                Login
               </Link>
             </p>
           </form>
